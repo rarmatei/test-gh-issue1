@@ -16,9 +16,17 @@
   "npmScope": "test-gh-issue",
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ],
+        "accessToken": "MGMxMmI2ZTEtZWYxZC00YjE2LWEyZWMtOTA2YjgwN2YzOTY0fHJlYWQtd3JpdGU=",
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
       }
     }
   },
@@ -28,7 +36,9 @@
     },
     "shell-e2e": {
       "tags": [],
-      "implicitDependencies": ["shell"]
+      "implicitDependencies": [
+        "shell"
+      ]
     }
   }
 }

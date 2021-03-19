@@ -1,0 +1,34 @@
+name: Run NX Jobs
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      NX_CLOUD_AUTH_TOKEN: ${{ secrets.NX_CLOUD_AUTH_TOKEN }}
+      NX_BRANCH: ${{ github.event.number }}
+      NX_RUN_GROUP: ${{ github.run_id }}
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 12
+
+      - name: install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Fetch other branches
+        run: git fetch --no-tags --prune --depth=5 origin $GITHUB_BASE_REF
+
+      - name: Nx
+        uses: MansaGroup/nrwl-nx-action@v2.0.3
+        with:
+          targets: lint,build,test,e2e
