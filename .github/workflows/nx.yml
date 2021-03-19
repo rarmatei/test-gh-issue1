@@ -39,10 +39,9 @@ jobs:
         run: git fetch --no-tags --prune --depth=5 origin $GITHUB_BASE_REF
 
       - name: Nx
-      uses: MansaGroup/nrwl-nx-action@v2.1.0
-      with:
-        targets: lint,test,e2e
-        nxCloud: 'true'
-        args: '--with-deps'
-        parallel: true
-
+        uses: MansaGroup/nrwl-nx-action@v2.1.0
+        with:
+          targets: lint,test,e2e
+          nxCloud: 'true'
+          args: '--with-deps'
+          parallel: true
