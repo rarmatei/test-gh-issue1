@@ -1,9 +1,6 @@
 name: Run NX Jobs
-on:
-  pull_request:
-    branches:
-      - main
-      - master
+
+on: [pull_request]
 
 jobs:
   build:
