@@ -1,14 +1,12 @@
 name: Run NX Jobs
-on:
-  pull_request:
-    branches: [master]
+
+on: [pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     env:
-      NX_CLOUD_AUTH_TOKEN: ${{ secrets.NX_CLOUD_AUTH_TOKEN }}
       NX_BRANCH: ${{ github.event.number }}
       NX_RUN_GROUP: ${{ github.run_id }}
 
