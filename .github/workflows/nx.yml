@@ -29,9 +29,9 @@ jobs:
       - uses: actions/cache@v2
         id: cache
         with:
-        path: |
-          **/node_modules
-        key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.yaml', '**/nx.yml') }}
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.yaml', '**/nx.yml') }}
 
 
 
