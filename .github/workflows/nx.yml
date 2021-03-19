@@ -5,10 +5,11 @@ on:
     branches: [main]
 
 jobs:
-  build:
+  nx:
     runs-on: ubuntu-latest
 
     env:
+      NX_CLOUD_AUTH_TOKEN: ${{ secrets.NX_CLOUD_AUTH_TOKEN }}
       NX_BRANCH: ${{ github.event.number }}
       NX_RUN_GROUP: ${{ github.run_id }}
 
@@ -18,17 +19,30 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           fetch-depth: 0
 
+      - name: Cancel previous runs
+        uses: n1hility/cancel-previous-runs@v2
+
       - uses: actions/setup-node@v2
         with:
-          node-version: 12
+          node-version: 14
 
       - name: install dependencies
         run: yarn install --frozen-lockfile
+
+      - uses: actions/cache@v2
+        id: cache
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.yaml', '**/nx.yml') }}
 
       - name: Fetch other branches
         run: git fetch --no-tags --prune --depth=5 origin $GITHUB_BASE_REF
 
       - name: Nx
-        uses: MansaGroup/nrwl-nx-action@v2.0.3
+        uses: MansaGroup/nrwl-nx-action@v2.1.0
         with:
-          targets: lint,build,test,e2e
+          targets: lint,test,e2e
+          nxCloud: 'true'
+          args: '--with-deps'
+          parallel: true
