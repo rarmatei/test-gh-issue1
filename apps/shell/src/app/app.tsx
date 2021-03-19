@@ -5,7 +5,7 @@ import styles from './app.module.scss';
 import { ReactComponent as Logo } from './logo.svg';
 import star from './star.svg';
 
-console.log("hello32!")
+console.log("some change!!")
 
 export function App() {
   return (
